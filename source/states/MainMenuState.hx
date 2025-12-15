@@ -11,6 +11,7 @@ import options.OptionsState;
 
 class MainMenuState extends MusicBeatState
 {
+	public static var stardustVersion:String = '1.0.5'; // Because this is also important
 	public static var psychEngineVersion:String = '1.0.3'; // This is also used for Discord RPC
 	public static var pSliceVersion:String = '2.3.1'; 
 	public static var funkinVersion:String = '0.5.3'; // Version of funkin' we are emulationg

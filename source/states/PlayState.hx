@@ -190,7 +190,7 @@ class PlayState extends MusicBeatState
 	public var camZoomingDecay:Float = 1;
 	private var curSong:String = "";
 	public var ratingEffects:Bool = true;
-	public var ratingTilt:Bool = true;
+	public var ratingTilt:Bool = false;
 	public var ratingBop:Bool = true;
 
 	public var gfSpeed:Int = 1;
@@ -1269,8 +1269,8 @@ class PlayState extends MusicBeatState
 		}
 
 		var tempScore:String;
-		if(!instakillOnMiss) tempScore = Language.getPhrase('score_text', 'Score: {1} | Misses: {2} | Rating: {3}', [numberWithCommas(songScore), songMisses, str]);
-		else tempScore = Language.getPhrase('score_text_instakill', 'Score: {1} | Rating: {2}', [numberWithCommas(songScore), str]);
+		if(!instakillOnMiss) tempScore = Language.getPhrase('score_text', 'Score: {1} | Misses: {2} | Accuracy: {3}', [numberWithCommas(songScore), songMisses, str]);
+		else tempScore = Language.getPhrase('score_text_instakill', 'Score: {1} | Accuracy: {2}', [numberWithCommas(songScore), str]);
 		scoreTxt.text = tempScore;
 	}
 
@@ -2063,9 +2063,10 @@ class PlayState extends MusicBeatState
 	{
 		var iconOffset:Int = 26;
 		var healthPercent:Float = FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01;
+		var center:Float = healthBar.x + healthBar.width * healthPercent;
 		if (ClientPrefs.data.ogIconBop) {
-			iconP1.x = healthBar.x + (healthBar.width * healthPercent - iconOffset);
-			iconP2.x = healthBar.x + (healthBar.width * healthPercent) - (iconP2.width - iconOffset);
+			iconP1.x = center - iconOffset;
+			iconP2.x = center - (iconP2.width - iconOffset);
 		} else {
 			iconP1.x = healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 			iconP2.x = healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2;

@@ -20,7 +20,7 @@ class MemoryCounter extends TextField
     this.width = 500;
     this.selectable = false;
     this.mouseEnabled = false;
-    defaultTextFormat = new TextFormat("_sans", 12, color);
+    defaultTextFormat = new TextFormat(Paths.font("fpsF.ttf"), 12, color);
     text = "RAM: ";
 
     #if flash
@@ -39,6 +39,6 @@ class MemoryCounter extends TextField
 
     if (mem > memPeak) memPeak = mem;
 
-    text = 'RAM: ${mem}mb / ${memPeak}mb';
+    text = 'RAM: ${mem}mb / ${memPeak}mb' + '\n' + 'STARDUST ENGINE v${MainMenuState.stardustVersion} / ${Mods.getPack()?.name ?? "Friday Night Funkin\'"}';
   }
 }
