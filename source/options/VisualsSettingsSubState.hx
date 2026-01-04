@@ -138,12 +138,6 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 			BOOL);
 		addOption(option);
 
-		var option:Option = new Option('OG Icon Bop',
-			"Old-school icon bounce.",
-			'ogIconBop',
-			BOOL);
-		addOption(option);
-
 		var option:Option = new Option('Healthbar-Colored Score',
 			"If checked, makes the score and botplay texts the same color as the player's healthbar.",
 			'playerBarColor',

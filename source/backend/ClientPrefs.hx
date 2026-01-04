@@ -37,7 +37,6 @@ import states.TitleState;
 	public var holdAccuracy:Bool = false;
 	public var mfcRanking:Bool = true;
 	public var playerBarColor:Bool = true;
-	public var ogIconBop:Bool = true;
 	public var ghostsAllowed:Bool = true;
 	public var noteSkin:String = 'Default';
 	public var vsliceFreeplay:Bool = true;
