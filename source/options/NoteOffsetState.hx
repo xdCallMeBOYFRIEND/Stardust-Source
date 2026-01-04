@@ -473,8 +473,8 @@ class NoteOffsetState extends MusicBeatState
 
 		var daLoop:Int = 0;
 		comboNums.screenCenter();
-		comboNums.x = rating.x + (43 * daLoop) - 55;
-		comboNums.y = rating.y + 105;
+		comboNums.x = coolText.x - 90 + ClientPrefs.data.comboOffset[2];
+		comboNums.y += 80 - ClientPrefs.data.comboOffset[3];
 		reloadTexts();
 	}
 

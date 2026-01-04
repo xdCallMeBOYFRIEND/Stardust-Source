@@ -743,9 +743,6 @@ class FunkinLua {
 			//trace('Triggered event: ' + name + ', ' + value1 + ', ' + value2);
 			return true;
 		});
-		Lua_helper.add_callback(lua, 'flipBar', function(name:String) {
-			PlayState.instance.flipBar();
-		});
 
 		Lua_helper.add_callback(lua, "startCountdown", function() {
 			game.startCountdown();

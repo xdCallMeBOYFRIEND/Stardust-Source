@@ -122,7 +122,6 @@ class PlayState extends MusicBeatState
 	public var modchartSprites:Map<String, Dynamic> = new Map<String, Dynamic>();
 	#end
 
-	public var cpuStrumGlow:Bool = true;
 	public var BF_X:Float = 770;
 	public var BF_Y:Float = 100;
 	public var DAD_X:Float = 100;
@@ -220,7 +219,6 @@ class PlayState extends MusicBeatState
 	public var healthGain:Float = 1;
 	public var healthLoss:Float = 1;
 
-	public var actuallyFlipHPBar:Bool = false;
 	public var guitarHeroSustains:Bool = false;
 	public var instakillOnMiss:Bool = false;
 	public var cpuControlled:Bool = false;
@@ -795,13 +793,6 @@ class PlayState extends MusicBeatState
 	public function reloadHealthBarColors() {
 		healthBar.setColors(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
 			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
-	}
-
-	public function flipBar(){
-		healthBar.flipX = !healthBar.flipX;
-		iconP1.flipX = !iconP1.flipX;
-		iconP2.flipX = !iconP2.flipX;
-		actuallyFlipHPBar = !actuallyFlipHPBar;
 	}
 
 	public function addCharacterToList(newCharacter:String, type:Int) {
@@ -2046,15 +2037,9 @@ class PlayState extends MusicBeatState
 				var icon:HealthIcon = iconScaleShit[i][0];
 				var scale:Float = iconScaleShit[i][1];
 				
-				if(ClientPrefs.data.ogIconBop){
-					var mult:Float = FlxMath.lerp((scale-0.2), icon.scale.x, CoolUtil.boundTo((scale-0.2) - (elapsed * 9 * playbackRate), 0, 1));
-					icon.scale.set(mult, mult);
-					icon.updateHitbox();
-				}else{
-					var mult:Float = FlxMath.lerp((scale-0.2), icon.scale.x, Math.exp(-elapsed * 9 * playbackRate));
-					icon.scale.set(mult, mult);
-					icon.updateHitbox();
-				}
+				var mult:Float = FlxMath.lerp((scale-0.2), icon.scale.x, CoolUtil.boundTo((scale-0.2) - (elapsed * 9 * playbackRate), 0, 1));
+				icon.scale.set(mult, mult);
+				icon.updateHitbox();
 			}
 		}
 	}
@@ -2064,12 +2049,12 @@ class PlayState extends MusicBeatState
 		var iconOffset:Int = 26;
 		var healthPercent:Float = FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01;
 		var center:Float = healthBar.x + healthBar.width * healthPercent;
-		if (ClientPrefs.data.ogIconBop) {
+		if(!healthBar.leftToRight) {
 			iconP1.x = center - iconOffset;
 			iconP2.x = center - (iconP2.width - iconOffset);
 		} else {
-			iconP1.x = healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-			iconP2.x = healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+			iconP2.x = center - iconOffset;
+			iconP1.x = center - (iconP1.width - iconOffset);
 		}
 	}
 
@@ -3603,9 +3588,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if(opponentVocals.length <= 0) vocals.volume = 1;
-		if (cpuStrumGlow) {
-			strumPlayAnim(true, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
-		}
+		strumPlayAnim(true, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
 		note.hitByOpponent = true;
 		
 		stagesFunc(function(stage:BaseStage) stage.opponentNoteHit(note));
